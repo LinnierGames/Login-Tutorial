@@ -19,30 +19,4 @@ For this tutorial, we'll be using a Single-View application.
 > [action]
 > Open up _Xcode_ and create a new project and select Single-View application as the template.
 
-Next, let's start thinking about what we'll want in each our Login and Register screens.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### End
+Next, we'll start with the Login Screen before we move on to the Register Screen.
