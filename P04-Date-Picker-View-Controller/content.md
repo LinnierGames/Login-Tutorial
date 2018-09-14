@@ -1,6 +1,6 @@
 ---
-title: "Laying out the Register Screen"
-slug: register-view-controller
+title: "Laying out the Date Picker Popup"
+slug: date-picker-view-controller
 ---
 
 So, we have the **Register Screen** all set up in the storyboard including the button the user can tap to enter their birth date.
@@ -9,12 +9,12 @@ Luckily for us, `UIKit` includes a class that does just this, the UIDatePicker.
 
 # Use the UIDatePicker class
 
-This class does just that, it allows the user to select a date, or time.
+This class does just that, it allows the user to select a date, or time, and we can retrieve the selected date.
 This class has a few useful properties:
 
 - `date: Date` this will give us the selected date
 - `maximumDate: Date?` by default this value is nil, but if we set this property to be tomorrow, the user can only select dates from today or in the past
-- `minimumDate: Date?` just like maximumDate, this is the inverse
+- `minimumDate: Date?` just like maximumDate, this is the inverse. Meaning, if this property is set to a date, the user cannot select a date later than the given date
 - `datePickerMode: UIDatePickerMode` this is an enum with the following cases:
 
 ```swift
@@ -26,16 +26,16 @@ enum UIDatePickerMode {
 }
 ```
 
-For the `datePickerMode`, we'll be using `UIDatePickerModeDate` since we only need the year, day, and month.
+In our case, the `datePickerMode` we'll be using is `UIDatePickerModeDate` since we only need the year, day, and month but not the time.
 
-Now, how will we add the `UIDatePicker`? We could add it to the **Outer StackView** but this date picker takes up a lot of space. Let's create a new view controller primarily responsible of selecting a date.
+Now, how will we add the `UIDatePicker`? We could add it to the **Outer StackView** but this date picker takes up a lot of space. Instead of finding a spot to place it in our Register's view, let's create a new view controller primarily responsible of selecting a date.
 
 # DatePickerViewController
 
-In this view controller, we're going to use the `UIDatePicker` to allow the user to select a date and we'll add a **Done** and **Cancel** button as well.
+In this view controller, we're going to use the `UIDatePicker` to allow the user to select a date. We'll also add a **Done** and **Cancel** button as well.
 
 > [action]
-> Create a new view controller named `DatePickerViewController` and add the following code inside the class:
+> Create a new view controller file named `DatePickerViewController` and add the following code inside the class:
 >
 ```swift
 class DatePickerViewController: UIViewController {
@@ -65,12 +65,38 @@ Here is the annotated result of our register screen:
 
 ![xcode date picker screens annotated](assets/final_date_picker_screen-annotated.png "Final Result of Date Picker Screen-Annotated")
 
+> [info]
+> If you like, try to layout this screen on your own. And if you, be sure to compare your project with the annotated screenshot.
+> If your project matches, then skip to the next page of this tutorial.
 
+Let's open up the storyboard and add the a view controller to our storyboard:
 
+> [action]
+> From the **Object Pallet** add a *UIViewController* to the right of the **RegisterViewController** in the storyboard. This will be used for our **DatePickerViewController** class we just made previously.
 
+> [info]
+> Don't forget to update the *UIViewController*'s **Identity** from *UIViewController* to *DatePickerViewController*.
 
+We'll be trying something new with how we'll segue to this view controller.
+This view controller well be presented over the current screen but with a transparent background.
+Take a look up at the screenshot with the iPhone preview and notice how we can still see the **RegisterViewController** behind it.
 
+> [action]
+> In the **RegisterViewController**, select the **Select a Date Button** and create a **Segue** from the button to the **DatePickerViewController**. But, instead of selecting **show** as the Segue Action select **Present Modally**.
 
+![xcode segue present modally](assets/modally_presented_segue.png "Modally Presented Segue")
+
+> [action]
+> Select the segue and update the following:
+
+![xcode segue presentation](assets/segue_presentation.png "Segue Presentation Mode")
+
+Before we test this out let's make the **DatePickerViewController** transparent.
+
+> [action]
+> Select the **view** of the **DatePickerViewController** and in the **Attributes Inspector** update the **Background Color** to **Black** and the **Opacity** to **80%**:
+
+![xcode transparent view controller](assets/transparent_view_controller.png "Transparent UIViewController")
 
 
 
