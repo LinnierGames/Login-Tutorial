@@ -55,7 +55,7 @@ class DatePickerViewController: UIViewController {
 Here we've added two `@IBAction`s for the done and cancel buttons.
 Also, we've added an `@IBOutlet` to the date picker so we can retrieve the `date` the user selects.
 
-# Laying out the DatePickerViewController in the Storyboard
+# Laying out the DatePickerViewController
 
 Here we got the final result our date picker screen:
 
@@ -68,6 +68,8 @@ Here is the annotated result of our register screen:
 > [info]
 > If you like, try to layout this screen on your own. And if you, be sure to compare your project with the annotated screenshot.
 > If your project matches, then skip to the next page of this tutorial.
+
+# Setting up the Storyboard
 
 Let's open up the storyboard and add the a view controller to our storyboard:
 
@@ -98,11 +100,77 @@ Before we test this out let's make the **DatePickerViewController** transparent.
 
 ![xcode transparent view controller](assets/transparent_view_controller.png "Transparent UIViewController")
 
+# Laying out the Date Picker Screen in the Storyboard
+
+We're going to start with the out most view and work our way in.
+Let's set up the empty `UIView` and the constraints for that view.
+We're going to use this new view as a container view for the `UIDatePicker` and some buttons.
+
+> [action]
+> Add a new `UIView` from the **Object Pallet** to the **DatePickerViewController** in the storyboard.
+> Then, select the newly added view and add the following constraints:
+> **Top:** 32px **Right:** 16px **Bottom:** 24px **Left** 16px
+
+![xcode view adding constraints](assets/view_adding_constraints.png "Adding Constraints")
+
+What will go in this **container view**:
+
+- `UILabel` for the Header
+- `UILabel` for the Subheader
+- `UIDatePicker` for the date
+- `UIButtons` for the done and cancel actions
+
+Let's continue with the header and subheader labels.
+
+> [action]
+> Add two `UILabel`s to the **inside of the container view** we just added (**make sure they're inside the container view versus the view controller's view**).
+> For the first label, adjust the **Font Style** from *System* to *Title 1*.
+> We'll make this the header label.
+>
+> Then, update the second label's **Font Style** to *Subhead*.
+> Lastly, select both labels and stack them in a **vertical stack view**.
+
+You should have something like this:
+
+![xcode vertical stack views](assets/header_subheader_stackviews.png "Vertical Stack Views")
+
+We're going to have some red errors with our constraints for a few steps, but we'll clear them as we go.
+
+Next, let's add the `UIDatePicker` and the two buttons:
+
+> [action]
+> Drag a `UIDatePicker` just bellow the **vertical stack view**.
+> Since we'll be adding the **vertical stack view**, the newly added **date picker** and **buttons** to an outer stack view, the size of the date picker doesn't matter.
+>
+> Select the **date picker** and update the **Mode** from *Date and Time* to *Date* in the **Attributes Inspector**.
+
+> [action]
+> Drag two `UIButton`s bellow the **date picker**.
+> For the first one, update its **Font Style** to *System Bold 17.0* and title the button **Done**.
+> And the second button, update its **Font** to *System 15* and title it **Cancel**.
+
+![xcode date picker and buttons](assets/datepicker_and_buttons.png "Transparent UIViewController")
+
+Now for the outer stack view:
+
+> [action]
+> Select the **vertical stack view**, that is containing the **header** and **subheader** labels, the **date picker** and the **two buttons** and **Embed them into a Stack View**.
+> Make sure this new stack view is a **vertical stack view** that contains all of the elements inside the **container view**.
+>
+> Select the newly added **stack view** and update the following:
+>
+> - **Alignment:** Fill
+> - **Distribution:** Fill
+> - **Spacing:** 16px
+
+We still have our red errors indicating we have either conflicting constraints or ambiguity in our layout (meaning there isn't enough of constraints to properly layout each view). Let's fix that by pinning the **outer stack view** to the **container view**.
+
+> [action]
+> Select the **outer stack view** and add the following constraints:
+>
+> Open the **Add New Constraints** dialogue and add **top, trailing, bottom and leading** constraints with the value of **zero** for the spacing. **Check on** the **Constraint to Margin** then click **Add 4 Constraints**
+
+![xcode adding constraints](assets/outer_constraints.png "Outer Stack View Constraints")
 
 
-
-
-
-
-
-### ENd
+### End
