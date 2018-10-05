@@ -143,6 +143,9 @@ Next, let's add the `UIDatePicker` and the two buttons:
 > Since we'll be adding the **vertical stack view**, the newly added **date picker** and **buttons** to an outer stack view, the size of the date picker doesn't matter.
 >
 > Select the **date picker** and update the **Mode** from *Date and Time* to *Date* in the **Attributes Inspector**.
+>
+> Also, update its **Vertical Content Compression Resistance**, located in the **Size Inspector**, from *250* to *249*.
+> This will become important later in the lesson.
 
 > [action]
 > Drag two `UIButton`s bellow the **date picker**.
@@ -151,7 +154,7 @@ Next, let's add the `UIDatePicker` and the two buttons:
 
 ![xcode date picker and buttons](assets/datepicker_and_buttons.png "Transparent UIViewController")
 
-Now for the outer stack view:
+Now for the outer stack view, we'll be stacking all of the components that are in the **container view** into an outer stack view:
 
 > [action]
 > Select the **vertical stack view**, that is containing the **header** and **subheader** labels, the **date picker** and the **two buttons** and **Embed them into a Stack View**.
@@ -172,5 +175,62 @@ We still have our red errors indicating we have either conflicting constraints o
 
 ![xcode adding constraints](assets/outer_constraints.png "Outer Stack View Constraints")
 
+# Refactoring the Constraints of the Container View
 
-### End
+Now, if we look at our **date picker screen** it looks a bit large.
+This is because we gave the **container view** constraints to pin its superview.
+Let's change each constraint while adding a few more to have the following behavior:
+
+![xcode autolayout iphone portrait](assets/container_view_portrait.png "iPhone Portrait")
+
+![xcode autolayout iphone landscape](assets/container_view_landscape.png "iPhone Landscape")
+
+When the phone is in portrait, the card will expand horizontally, but shrink vertically and centered.
+But, when the phone is in landscape, the card will expand vertically, but shrink horizontally and centered.
+Let's see how we can achieve this behavior.
+
+> [action]
+> Select the **container view** and open the **Size Inspector** and look for **Sibling & Ancestor Constraints**.
+
+Make sure all four constraints look like this:
+
+![xcode autolayout size inspector](assets/container_view_size_inspector-1.png "Size Inspector")
+
+What we need to do is allow each constraint to be equal or larger than the given constant.
+
+> [action]
+> Look for **Align Bottom to: Safe Area** in the list of **Sibling & Ancestor Constraints** table and click **Edit**.
+> A popup will appear. Open the dropdown and select **Greater Than or Equal to**.
+> The bottom constraint will extend larger than our given constant which is **24px**.
+
+![xcode autolayout relationship](assets/container_view_size_inspector-2.png "Autolayout Relationship")
+
+> [action]
+> Do this to the **Align Top to: Safe Area** constraint.
+> You will get a constraint error after applying the **Greater Than or Equal to** to the **Align Top to: Safe Area** constraint.
+
+Since the **container view**'s top and bottom constraints are allowed to expand, auto layout doesn't know where to vertically place this view.
+So, let's add a constraint that will center the **container view** vertically.
+
+> [challenge]
+> Add a **Center Vertically Constraint** to the **container view** to fix the autolayout error.
+
+> [solution] The end result should look like this:
+>
+> ![xcode autolayout center vertically](assets/container_view_size_inspector-3.png "Autolayout Center Vertically")
+
+Fixed! Now our **container view** will shrink to the smallest it needs to be vertically, but stay contained within the Safe Area.
+Now, go ahead and apply the same changes to the **Trailing Space to: Safe Area** and **Align Leading to: Safe Area** constraints.
+
+> [challenge]
+> Apply the same changes to allow the **container view** to shrink and center horizontally.
+
+The end result should look like this:
+
+![xcode autolayout center](assets/container_view_size_inspector-4.png "Autolayout Center")
+
+# Wrapping up the Date Picker screen
+
+Alright, we've laid out each component and it looks great!
+There's a done and cancel button, as well as a header and subtitle label.
+Now, let's hook it up with the controller in the next page.
