@@ -42,11 +42,11 @@ class DatePickerViewController: UIViewController {
 >
     @IBOutlet weak var datePicker: UIDatePicker!
 >
-    @IBAction func pressDone(sender: Any) {
+    @IBAction func pressDone(_ sender: Any) {
 >
     }
 >
-    @IBAction func pressCancel(sender: Any) {
+    @IBAction func pressCancel(_ sender: Any) {
 >
     }
 }
